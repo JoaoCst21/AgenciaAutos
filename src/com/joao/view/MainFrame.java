@@ -1,26 +1,25 @@
 package com.joao.view;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class MainFrame extends JFrame implements ActionListener {
-    private JMenu carMenu;
-    private JMenu motorcycleMenu;
-    private JMenu busMenu;
-    private JMenu userMenu;
 
-    private String[] options = {"create", "read", "update", "delete"};
-    private ArrayList<JMenuItem> userMenuItems = new ArrayList<>();
+    private final String[] options = {"create", "read", "update", "delete"};
+    private final ArrayList<JMenuItem> userMenuItems = new ArrayList<>();
 
-    private ArrayList<JMenuItem> carMenuItems = new ArrayList<>();
-    private ArrayList<JMenuItem> motorcycleMenuItems = new ArrayList<>();
-    private ArrayList<JMenuItem> busMenuItems = new ArrayList<>();
-    private ArrayList<ArrayList<JMenuItem>> conveyanceItems = new ArrayList<>();
+    private final ArrayList<JMenuItem> carMenuItems = new ArrayList<>();
+    private final ArrayList<JMenuItem> motorcycleMenuItems = new ArrayList<>();
+    private final ArrayList<JMenuItem> busMenuItems = new ArrayList<>();
+    private final ArrayList<ArrayList<JMenuItem>> conveyanceItems = new ArrayList<>();
 
     public MainFrame() {
         customComponents();
@@ -33,10 +32,10 @@ public class MainFrame extends JFrame implements ActionListener {
         JMenuBar menuBar = new JMenuBar();
 
         // menus
-        carMenu = new JMenu("Carro");
-        motorcycleMenu = new JMenu("Moto");
-        busMenu = new JMenu("Camioneta");
-        userMenu = new JMenu("Usuario");
+        JMenu carMenu = new JMenu("Carro");
+        JMenu motorcycleMenu = new JMenu("Moto");
+        JMenu busMenu = new JMenu("Camioneta");
+        JMenu userMenu = new JMenu("Usuario");
 
         // adding arraylist of Items to conveyance Items
         conveyanceItems.add(carMenuItems);
@@ -59,14 +58,28 @@ public class MainFrame extends JFrame implements ActionListener {
             }
         }
 
+        // button log out
+        JMenu sesion = new JMenu("Sesion");
+        JMenuItem menuLogOut = new JMenuItem("Cerrar sesion");
+        menuLogOut.addActionListener(e -> {
+            this.dispose();
+            new LoginFrame();
+        });
+
+        sesion.add(menuLogOut);
+
         // add menus to menuBar
         menuBar.add(carMenu);
         menuBar.add(motorcycleMenu);
         menuBar.add(busMenu);
         menuBar.add(userMenu);
+        menuBar.add(sesion);
 
         // set to main Frame
         setJMenuBar(menuBar);
+
+
+
 
         // default panel
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -82,11 +95,6 @@ public class MainFrame extends JFrame implements ActionListener {
         }
     }
 
-    public static void main(String[] args) {
-        new MainFrame();
-    }
-
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (carMenuMethods(e.getSource())) return;
@@ -97,6 +105,8 @@ public class MainFrame extends JFrame implements ActionListener {
     private boolean carMenuMethods(Object item) {
         if (item == carMenuItems.get(0)) {
             // call create frame
+//            add(new CreateFrame<Car>(new String[] {"año", "capacidad", "modelo", "marca"}));
+            add(new CreateFrameCar());
             return true;
         }
 

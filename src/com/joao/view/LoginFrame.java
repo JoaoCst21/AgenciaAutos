@@ -7,13 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 public class LoginFrame extends JFrame {
-    LoginFrame() {
+    public LoginFrame() {
         customComponents();
         setVisible(true);
     }
@@ -88,9 +87,5 @@ public class LoginFrame extends JFrame {
             }
             // Display Error Message and Try again, at least I hope
         });
-    }
-
-    public static void main(String[] args) {
-        new LoginFrame();
     }
 }

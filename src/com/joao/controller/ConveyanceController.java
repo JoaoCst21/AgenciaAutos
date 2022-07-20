@@ -9,18 +9,27 @@ public abstract class ConveyanceController<T extends Conveyance> implements CRUD
     private int id;
     ArrayList<T> conveyances = new ArrayList<>();
 
+    protected ArrayList<T> getConveyances() {
+        return conveyances;
+    }
+
     // Abstract validation Methods
-    public abstract void validate(T conveyance); // Maybe boolean
-    public abstract void validateYear();
-    public abstract void validateTransportCapacity();
-    public abstract void validateModel();
-    public abstract void validateBrand();
+    public abstract void validate(T conveyance) throws Exception; // Maybe boolean
+    public abstract void validateYear(int year) throws Exception;
+    public abstract void validateTransportCapacity(int transportCapacity) throws Exception;
+    public abstract void validateModel(String model) throws Exception;
+    public abstract void validateBrand(String brand) throws Exception;
+    protected void verifyArrayLength() throws Exception{
+        if (conveyances.size() == 0) throw new Exception("The database is Empty");
+    }
 
 
     // Interface Methods
     @Override
-    public void create(T conveyance) {
-
+    public void create(T object) {
+        object.setId(id);
+        conveyances.add(object);
+        id++;
     }
 
     @Override
@@ -34,9 +43,6 @@ public abstract class ConveyanceController<T extends Conveyance> implements CRUD
 
     @Override
     public void update(T conveyance) {
-        // Validate
-        validate(conveyance);
-
         for (T transport : conveyances)
             if (conveyance.getId() == transport.getId()) {
                 conveyances.remove(transport);
@@ -49,4 +55,5 @@ public abstract class ConveyanceController<T extends Conveyance> implements CRUD
     public void delete(T conveyance) {
         conveyances.remove(conveyance);
     }
+
 }

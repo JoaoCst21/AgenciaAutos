@@ -3,7 +3,7 @@ package com.joao.model;
 public class Bus extends Conveyance{
     private int doors;
 
-    public Bus(String conveyanceName, int id, int year, int transportCapacity, String model, String brand, int doors) {
+    public Bus(int id, int year, int transportCapacity, String model, String brand, int doors) {
         super("Camioneta", id, year, transportCapacity, model, brand);
         this.doors = doors;
     }
