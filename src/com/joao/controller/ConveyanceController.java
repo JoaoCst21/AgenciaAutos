@@ -14,7 +14,6 @@ public abstract class ConveyanceController<T extends Conveyance> implements CRUD
     }
 
     // Abstract validation Methods
-    public abstract void validate(T conveyance) throws Exception; // Maybe boolean
     public abstract void validateYear(int year) throws Exception;
     public abstract void validateTransportCapacity(int transportCapacity) throws Exception;
     public abstract void validateModel(String model) throws Exception;

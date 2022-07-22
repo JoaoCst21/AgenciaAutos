@@ -16,6 +16,6 @@ public class ReadFrameCar extends ReadFrame{
     CarController carController = CarController.getCarController();
     
     public ReadFrameCar() {
-        super(new String[] {"ID", "Año", "Capacidad de Transporte", "Modelo", "Marca", "puertas"}, CarController.getFields());
+        super(new String[] {"ID", "Año", "Capacidad de Transporte", "Modelo", "Marca", "Puertas"}, CarController.getFields());
     }
 }

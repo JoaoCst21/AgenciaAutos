@@ -5,4 +5,6 @@ public interface CRUD<Class> {
     public Class read(int id);
     public void update(Class object);
     public void delete(Class object);
+
+    public void validate(Class object) throws Exception;
 }

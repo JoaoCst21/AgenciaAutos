@@ -12,6 +12,23 @@ public class UserController implements CRUD<User> {
         add(new User(0, "david@kinal.edu.gt", "123456", 'B'));
     }};
 
+    public static ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public static String[][] getFields() {
+        String[][] array = new String[users.size()][2];
+        int i = 0;
+        for (User user : users) {
+            array[i][0] = String.valueOf(user.getEmail());
+            if (user.getRol() == 'A') array[i][1] = "Admin";
+            if (user.getRol() == 'B') array[i][1] = "Worker";
+            i++;
+        }
+
+        return array;
+    }
+
     public void validateEmail(String email) throws Exception {
         for (int i = 0; i < email.length(); i++)
             if (email.charAt(i) == '@') return;
@@ -44,23 +61,15 @@ public class UserController implements CRUD<User> {
         return 'F';
     }
 
-    public boolean isValid(String email, String password) {
-        for (User user: users) {
-            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
-                //Display error message
-                return false;
-            }
-        }
+    public void validateRol(char rol) throws Exception{
+        if (rol == 'A' || rol == 'B') return;
+        throw new Exception("Rol no valid");
+    }
 
-        try {
-            validateEmail(email);
-            validatePassword(password);
-        } catch (Exception e) {
-            // throw new RuntimeException(e);
-            // add JFrame displaying error
-            return false;
+    public void validateNoRepeatedEmail(String email) throws Exception {
+        for (User user : users) {
+            if (user.getEmail().equals(email)) throw new Exception("Email is in database already");
         }
-        return true;
     }
 
 
@@ -69,7 +78,10 @@ public class UserController implements CRUD<User> {
     @Override
     public void create(User user) {
         try {
-            isValid(user.getEmail(), user.getPassword());
+            validate(user);
+            user.setId(id);
+            users.add(user);
+            id++;
         } catch (Exception e) {
             // display error message
             return;
@@ -109,5 +121,13 @@ public class UserController implements CRUD<User> {
     @Override
     public void delete(User user) {
         users.remove(user);
+    }
+
+    @Override
+    public void validate(User user) throws Exception {
+        validateNoRepeatedEmail(user.getEmail());
+        validateEmail(user.getEmail());
+        validatePassword(user.getPassword());
+        validateRol(user.getRol());
     }
 }

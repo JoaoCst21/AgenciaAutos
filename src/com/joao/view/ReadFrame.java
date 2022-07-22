@@ -23,8 +23,8 @@ public class ReadFrame extends JInternalFrame {
         // Table
         JTable table = new JTable(data, column);
         table.setBounds(30, 40, 200, 300);
-        // JTable table = new JTable(new String[][] {{"2000", "Honda"}, {"1920", "Mercedez"}}, new String[] {"Year", "Brand"});
         
+        // ScrollPane
          JScrollPane sp=new JScrollPane(table);
 
         // add table to frame

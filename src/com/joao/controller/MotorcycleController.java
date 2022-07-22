@@ -14,7 +14,7 @@ public class MotorcycleController extends ConveyanceController<Motorcycle>{
 
     public static String[][] getFields() {
         ArrayList<Motorcycle> motos = getMotorcycleController().getConveyances();
-        String[][] array = new String[motos.size()][6];
+        String[][] array = new String[motos.size()][5];
         int i = 0;
         for (Motorcycle moto : motos) {
             array[i][0] = String.valueOf(moto.getId());

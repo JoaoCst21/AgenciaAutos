@@ -76,13 +76,13 @@ public class LoginFrame extends JFrame {
             char rol = userController.verify(emailTxt.getText(), passwordTxt.getText());
             if (rol == 'A') {
                 this.dispose();
-                new MainFrame();
+                new MainFrameAdmin();
                 return;
             }
             if (rol == 'B') {
                 this.dispose();
                 // here I should display a different Window, but for know is Okay
-                new MainFrame();
+                new MainFrameWorker();
                 return;
             }
             // Display Error Message and Try again, at least I hope

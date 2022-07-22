@@ -1,32 +1,27 @@
 package com.joao.view;
 
-import java.awt.Color;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
-import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class MainFrame extends JFrame implements ActionListener {
+public abstract class MainFrame extends JFrame implements ActionListener {
 
-    private final String[] options = {"create", "read", "update", "delete"};
-    private final ArrayList<JMenuItem> userMenuItems = new ArrayList<>();
+    protected final String[] options;
+    protected final ArrayList<JMenuItem> userMenuItems = new ArrayList<>();
 
-    private final ArrayList<JMenuItem> carMenuItems = new ArrayList<>();
-    private final ArrayList<JMenuItem> motorcycleMenuItems = new ArrayList<>();
-    private final ArrayList<JMenuItem> busMenuItems = new ArrayList<>();
-    private final ArrayList<ArrayList<JMenuItem>> conveyanceItems = new ArrayList<>();
+    protected final ArrayList<JMenuItem> carMenuItems = new ArrayList<>();
+    protected final ArrayList<JMenuItem> motorcycleMenuItems = new ArrayList<>();
+    protected final ArrayList<JMenuItem> busMenuItems = new ArrayList<>();
+    protected final ArrayList<ArrayList<JMenuItem>> conveyanceItems = new ArrayList<>();
 
-    public MainFrame() {
+    public MainFrame(String[] options) {
+        this.options = options;
         customComponents();
         setVisible(true);
-
-        
     }
 
 
@@ -100,105 +95,10 @@ public class MainFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (carMenuMethods(e.getSource())) return;
-        if (motorcycleMenuMethods(e.getSource())) return;
-        if (busMenuMethods(e.getSource())) return;
+        displayFrames(e.getSource());
     }
 
-    private boolean carMenuMethods(Object item) {
-        if (item == carMenuItems.get(0)) {
-            // call create frame
-//            add(new CreateFrame<Car>(new String[] {"año", "capacidad", "modelo", "marca"}));
-            add(new CreateFrameCar());
+    protected abstract void displayFrames(Object item);
 
-            System.out.println("WORKKKK");
-
-            return true;
-        }
-
-        if (item == carMenuItems.get(1)) {
-            // call read frame
-            add(new ReadFrameCar());
-            return true;
-        }
-
-        if (item == carMenuItems.get(2)) {
-            // call update frame
-            return true;
-        }
-
-        if (item == carMenuItems.get(3)) {
-            // call delete frame
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean motorcycleMenuMethods(Object item) {
-        if (item == motorcycleMenuItems.get(0)) {
-            // call create frame
-            return true;
-        }
-
-        if (item == motorcycleMenuItems.get(1)) {
-            // call read frame
-            return true;
-        }
-
-        if (item == motorcycleMenuItems.get(2)) {
-            // call update frame
-            return true;
-        }
-
-        if (item == motorcycleMenuItems.get(3)) {
-            // call delete frame
-            return true;
-        }
-
-        return false;
-    }
-
-    private boolean busMenuMethods(Object item) {
-        if (item == busMenuItems.get(0)) {
-            // call create frame
-            return true;
-        }
-
-        if (item == busMenuItems.get(1)) {
-            // call read frame
-            return true;
-        }
-
-        if (item == busMenuItems.get(2)) {
-            // call update frame
-            return true;
-        }
-
-        if (item == busMenuItems.get(3)) {
-            // call delete frame
-            return true;
-        }
-
-        return false;
-    }
 }
-/*
-        // adding items to carMenu
-        carMenu.add(new JMenuItem("create"));
-        carMenu.add(new JMenuItem("read"));
-        carMenu.add(new JMenuItem("update"));
-        carMenu.add(new JMenuItem("delete"));
 
-        // adding items to motorcycleMenu
-        motorcycleMenu.add(new JMenuItem("create"));
-        motorcycleMenu.add(new JMenuItem("read"));
-        motorcycleMenu.add(new JMenuItem("update"));
-        motorcycleMenu.add(new JMenuItem("delete"));
-
-        // adding items to busMenu
-        busMenu.add(new JMenuItem("create"));
-        busMenu.add(new JMenuItem("read"));
-        busMenu.add(new JMenuItem("update"));
-        busMenu.add(new JMenuItem("delete"));
-*/

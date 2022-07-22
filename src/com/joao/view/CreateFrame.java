@@ -1,23 +1,30 @@
 package com.joao.view;
 
+import com.joao.controller.ConveyanceController;
+import com.joao.model.CRUD;
 import com.joao.model.Conveyance;
 
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Map;
 
-public abstract class CreateFrame extends JInternalFrame implements ActionListener {
+public abstract class CreateFrame<T, E extends CRUD> extends JInternalFrame implements ActionListener {
+    private final E controller;
     JPanel panel;
     String[] fields;
     HashMap<String, JPanel> subPanels = new HashMap<>();
     HashMap<String, JLabel> labels = new HashMap<>();
     HashMap<String, JTextField> textfields = new HashMap<>();
 
-    public CreateFrame(String[] fields) {
+    public CreateFrame(E controller, String[] fields) {
+        this.controller = controller;
         this.fields = fields;
         customComponents();
         setVisible(true);
@@ -49,6 +56,8 @@ public abstract class CreateFrame extends JInternalFrame implements ActionListen
         buttonSubmit.addActionListener(this);
     }
 
+
+    // Methods
     private void setLabelsTextFields() {
         for (String field : fields) {
             subPanels.put(field, new JPanel());
@@ -63,4 +72,37 @@ public abstract class CreateFrame extends JInternalFrame implements ActionListen
             panel.add(subPanels.get(field));
         }
     }
+
+    private void checkTextFields() throws Exception {
+        for (Map.Entry<String, JTextField> text : textfields.entrySet()) {
+            if (text.getValue().getText().equals("")) throw new Exception("You must fill all Fields");
+        }
+    }
+    
+    private void tryCreateCar() {
+        try {
+            // checks for not filled fields
+            checkTextFields();
+
+            // get Fields, validate all, and Add new Object T to controller
+            T object = getObject();
+            controller.validate(object);
+            controller.create(object);
+
+            // disable window
+            this.dispose();
+        } catch (Exception ex) {
+            // do Something
+            // display error Message;
+            JOptionPane.showMessageDialog(null, ex.getMessage(), "Car Error", JOptionPane.ERROR_MESSAGE);
+            System.out.println(ex.getMessage()); // just for now
+        }
+    }
+
+    protected abstract T getObject();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        tryCreateCar();
+    }
+
 }
