@@ -6,12 +6,32 @@ import java.util.ArrayList;
 
 
 public class CarController extends ConveyanceController<Car> {
-    public static ArrayList<Car> cars;
+    private static CarController carController;
 
-    public CarController() {
-        cars = (ArrayList<Car>) getConveyances();
+    public static CarController getCarController() {
+        if (carController == null) carController = new CarController();
+        return carController;
     }
+    
+    public static String[][] getFields() {
+        ArrayList<Car> cars = getCarController().getConveyances();
+        String[][] array = new String[cars.size()][6];
+        int i = 0;
+        for (Car car : cars) {
+            array[i][0] = String.valueOf(car.getId());
+            array[i][1] = String.valueOf(car.getYear());
+            array[i][2] = String.valueOf(car.getTransportCapacity());
+            array[i][3] = String.valueOf(car.getModel());
+            array[i][4] = String.valueOf(car.getBrand());
+            array[i][5] = String.valueOf(car.getDoors());
+            i++;
+        }
 
+        return array;
+    }
+    
+
+    // validation Methods
     @Override
     public void validate(Car car) throws Exception {
         validateYear(car.getYear());

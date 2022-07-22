@@ -2,7 +2,32 @@ package com.joao.controller;
 
 import com.joao.model.Motorcycle;
 
+import java.util.ArrayList;
+
 public class MotorcycleController extends ConveyanceController<Motorcycle>{
+    private static MotorcycleController motorcycleController;
+
+    public static MotorcycleController getMotorcycleController() {
+        if (motorcycleController == null) motorcycleController = new MotorcycleController();
+        return motorcycleController;
+    }
+
+    public static String[][] getFields() {
+        ArrayList<Motorcycle> motos = getMotorcycleController().getConveyances();
+        String[][] array = new String[motos.size()][6];
+        int i = 0;
+        for (Motorcycle moto : motos) {
+            array[i][0] = String.valueOf(moto.getId());
+            array[i][1] = String.valueOf(moto.getYear());
+            array[i][2] = String.valueOf(moto.getTransportCapacity());
+            array[i][3] = String.valueOf(moto.getModel());
+            array[i][4] = String.valueOf(moto.getBrand());
+            i++;
+        }
+
+        return array;
+    }
+
     @Override
     public void validate(Motorcycle moto) throws Exception {
         validateYear(moto.getYear());

@@ -1,5 +1,6 @@
 package com.joao.view;
 
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -23,6 +24,9 @@ public class MainFrame extends JFrame implements ActionListener {
 
     public MainFrame() {
         customComponents();
+        setVisible(true);
+
+        
     }
 
 
@@ -84,7 +88,6 @@ public class MainFrame extends JFrame implements ActionListener {
         // default panel
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 400);
-        setVisible(true);
     }
 
     private void setMenuItems(String[] options) {
@@ -107,11 +110,15 @@ public class MainFrame extends JFrame implements ActionListener {
             // call create frame
 //            add(new CreateFrame<Car>(new String[] {"año", "capacidad", "modelo", "marca"}));
             add(new CreateFrameCar());
+
+            System.out.println("WORKKKK");
+
             return true;
         }
 
         if (item == carMenuItems.get(1)) {
             // call read frame
+            add(new ReadFrameCar());
             return true;
         }
 

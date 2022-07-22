@@ -14,7 +14,7 @@ public class CreateFrameCar extends CreateFrame {
     @Override
     public void actionPerformed(ActionEvent e) {
         // instantiate carController
-        CarController carController = new CarController();
+        CarController carController = CarController.getCarController();
 
         // get Fields
         int year = Integer.parseInt(textfields.get("año").getText());

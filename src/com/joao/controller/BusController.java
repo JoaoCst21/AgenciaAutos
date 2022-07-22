@@ -2,7 +2,33 @@ package com.joao.controller;
 
 import com.joao.model.Bus;
 
+import java.util.ArrayList;
+
 public class BusController extends ConveyanceController<Bus> {
+    private static BusController busController;
+
+    public static BusController getBusController() {
+        if (busController == null) busController = new BusController();
+        return busController;
+    }
+
+    public static String[][] getFields() {
+        ArrayList<Bus> buses = getBusController().getConveyances();
+        String[][] array = new String[buses.size()][6];
+        int i = 0;
+        for (Bus car : buses) {
+            array[i][0] = String.valueOf(car.getId());
+            array[i][1] = String.valueOf(car.getYear());
+            array[i][2] = String.valueOf(car.getTransportCapacity());
+            array[i][3] = String.valueOf(car.getModel());
+            array[i][4] = String.valueOf(car.getBrand());
+            array[i][5] = String.valueOf(car.getDoors());
+            i++;
+        }
+
+        return array;
+    }
+
     @Override
     public void validate(Bus bus) throws Exception {
         validateYear(bus.getYear());
