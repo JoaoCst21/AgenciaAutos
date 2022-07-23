@@ -22,55 +22,41 @@ public class MainFrameAdmin extends MainFrame{
             add(new ArrayList<>() {{
                 add(new CreateFrameCar());
                 add(new ReadFrameCar());
-                //
+                add(new UpdateFrameCar());
                 //
             }});
 
             add(new ArrayList<>() {{
                 add(new CreateFrameMotorcycle());
                 add(new ReadFrameMotorcycle());
-                //
+                add(new UpdateFrameMoto());
                 //
             }});
 
             add(new ArrayList<>() {{
                 add(new CreateFrameBus());
                 add(new ReadFrameBus());
-                //
+                add(new UpdateFrameBus());
                 //
             }});
 
             add(new ArrayList<>() {{
                 add(new CreateFrameUserAdmin());
                 add(new ReadFrameUser());
-                //
+                add(new UpdateFrameUser());
                 //
             }});
         }};
 
         int i = 0;
         for (ArrayList<JMenuItem> menuItem : menuItems) {
-            if (item == menuItem.get(0)) {
-                // Create Frame
-                add(methods.get(i).get(0));
-                return;
+            for (int ind = 0; ind < menuItem.size(); ind++) {
+                if (item == menuItem.get(ind)) {
+                    // call Frame
+                    add(methods.get(i).get(ind));
+                    return;
+                }
             }
-            if (item == menuItem.get(1)) {
-                // call read frame
-                add(methods.get(i).get(1));
-                return;
-            }
-
-            if (item == menuItem.get(2)) {
-                // call update frame
-                return;
-            }
-
-            if (item == menuItem.get(3)) {
-                // call delete frame
-                return;
-            }
-            i++;
         }
     }
 }
