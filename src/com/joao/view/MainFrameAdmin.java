@@ -1,5 +1,6 @@
 package com.joao.view;
 
+import javax.swing.JFrame;
 import javax.swing.JInternalFrame;
 import javax.swing.JMenuItem;
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ public class MainFrameAdmin extends MainFrame{
             add(userMenuItems);
         }};
 
-        ArrayList<ArrayList<JInternalFrame>> methods = new ArrayList<>() {{
+        methods = new ArrayList<>() {{
             add(new ArrayList<>() {{
                 add(new CreateFrameCar());
                 add(new ReadFrameCar());
@@ -52,11 +53,18 @@ public class MainFrameAdmin extends MainFrame{
         for (ArrayList<JMenuItem> menuItem : menuItems) {
             for (int ind = 0; ind < menuItem.size(); ind++) {
                 if (item == menuItem.get(ind)) {
-                    // call Frame
-                    add(methods.get(i).get(ind));
+                    // desactiveFrame
+                    if (activeFrame != null) activeFrame.dispose();
+
+                    // declare ActiveFrame
+                    activeFrame = methods.get(i).get(ind);
+
+                    // add activeFrame
+                    add(activeFrame);
                     return;
                 }
             }
+            i++;
         }
     }
 }

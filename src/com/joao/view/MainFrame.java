@@ -1,6 +1,7 @@
 package com.joao.view;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
@@ -9,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public abstract class MainFrame extends JFrame implements ActionListener {
+
+    protected JInternalFrame activeFrame;
+    protected ArrayList<ArrayList<JInternalFrame>> methods;
 
     protected final String[] options;
     protected final ArrayList<JMenuItem> userMenuItems = new ArrayList<>();
@@ -60,10 +64,15 @@ public abstract class MainFrame extends JFrame implements ActionListener {
         // button log out
         JMenu sesion = new JMenu("Sesion");
         JMenuItem menuLogOut = new JMenuItem("Cerrar sesion");
+//        JMenuItem modifyUser = new JMenuItem("Configurar Cuenta");
         menuLogOut.addActionListener(e -> {
             this.dispose();
             new LoginFrame();
         });
+
+//        modifyUser.addActionListener(e -> {
+//            add(new CuentaFrame());
+//        });
 
         sesion.add(menuLogOut);
 
