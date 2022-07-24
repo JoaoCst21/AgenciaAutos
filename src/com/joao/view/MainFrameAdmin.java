@@ -12,29 +12,29 @@ public class MainFrameAdmin extends MainFrame{
 
     @Override
     protected void displayFrames(Object item) {
-        methods = new ArrayList<>() {{
-            add(new ArrayList<>() {{
+        methods = new ArrayList<ArrayList<JInternalFrame>>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameCar());
                 add(new ReadFrameCar());
                 add(new UpdateFrameCar());
                 add(new DeleteFrameCar());
             }});
 
-            add(new ArrayList<>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameMotorcycle());
                 add(new ReadFrameMotorcycle());
                 add(new UpdateFrameMoto());
                 add(new DeleteFrameMoto());
             }});
 
-            add(new ArrayList<>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameBus());
                 add(new ReadFrameBus());
                 add(new UpdateFrameBus());
                 add(new DeleteFrameBus());
             }});
 
-            add(new ArrayList<>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameUserAdmin());
                 add(new ReadFrameUser());
                 add(new UpdateFrameUser());

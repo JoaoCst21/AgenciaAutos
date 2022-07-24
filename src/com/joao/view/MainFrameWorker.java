@@ -11,23 +11,22 @@ public class MainFrameWorker extends MainFrame {
 
     @Override
     protected void displayFrames(Object item) {
-        methods = new ArrayList<>() {{
-            add(new ArrayList<>() {{
+        methods = new ArrayList<ArrayList<JInternalFrame>>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameCar());
                 add(new ReadFrameCar());
             }});
 
-            add(new ArrayList<>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameMotorcycle());
                 add(new ReadFrameMotorcycle());
             }});
 
-            add(new ArrayList<>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameBus());
                 add(new ReadFrameBus());
             }});
-
-            add(new ArrayList<>() {{
+            add(new ArrayList<JInternalFrame>() {{
                 add(new CreateFrameUserWorker());
                 add(new ReadFrameUser());
             }});

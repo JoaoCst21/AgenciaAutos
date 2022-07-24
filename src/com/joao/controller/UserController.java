@@ -6,7 +6,7 @@ import com.joao.model.User;
 import java.util.ArrayList;
 
 public class UserController implements CRUD<User> {
-    private static ArrayList<User> users = new ArrayList<>() {{
+    private static ArrayList<User> users = new ArrayList<User>() {{
         add(new User(0, "joao@kinal.edu.gt", "123456", 'A'));
         add(new User(1, "david@kinal.edu.gt", "123456", 'B'));
     }};
