@@ -6,11 +6,11 @@ import com.joao.model.Car;
 public class DeleteFrameCar extends DeleteFrame<Car, CarController>{
 
     public DeleteFrameCar() {
-        super(new String[] {"id", "año", "capacidad", "modelo", "marca", "puertas"});
+        super(CarController.getCarController(), new String[] {"id", "año", "capacidad", "modelo", "marca", "puertas"});
     }
 
     @Override
-    protected void setTextfieldValue(Car car) {
+    protected void setDataTableValue(Car car) {
         String[] array = data[0];
         array[0] = String.valueOf(car.getId());
         array[1] = String.valueOf(car.getYear());

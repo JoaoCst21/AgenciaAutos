@@ -5,11 +5,11 @@ import com.joao.model.Bus;
 
 public class DeleteFrameBus extends DeleteFrame<Bus, BusController>{
     public DeleteFrameBus() {
-        super(new String[] {"id", "año", "capacidad", "modelo", "marca", "puertas"});
+        super(BusController.getBusController(), new String[] {"id", "año", "capacidad", "modelo", "marca", "puertas"});
     }
 
     @Override
-    protected void setTextfieldValue(Bus bus) {
+    protected void setDataTableValue(Bus bus) {
         String[] array = data[0];
         array[0] = String.valueOf(bus.getId());
         array[1] = String.valueOf(bus.getYear());

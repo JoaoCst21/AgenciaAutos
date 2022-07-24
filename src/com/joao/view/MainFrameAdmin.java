@@ -17,28 +17,28 @@ public class MainFrameAdmin extends MainFrame{
                 add(new CreateFrameCar());
                 add(new ReadFrameCar());
                 add(new UpdateFrameCar());
-                //
+                add(new DeleteFrameCar());
             }});
 
             add(new ArrayList<>() {{
                 add(new CreateFrameMotorcycle());
                 add(new ReadFrameMotorcycle());
                 add(new UpdateFrameMoto());
-                //
+                add(new DeleteFrameMoto());
             }});
 
             add(new ArrayList<>() {{
                 add(new CreateFrameBus());
                 add(new ReadFrameBus());
                 add(new UpdateFrameBus());
-                //
+                add(new DeleteFrameBus());
             }});
 
             add(new ArrayList<>() {{
                 add(new CreateFrameUserAdmin());
                 add(new ReadFrameUser());
                 add(new UpdateFrameUser());
-                //
+                add(new DeleteFrameUser());
             }});
         }};
 
