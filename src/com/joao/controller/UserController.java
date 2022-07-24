@@ -6,23 +6,24 @@ import com.joao.model.User;
 import java.util.ArrayList;
 
 public class UserController implements CRUD<User> {
-    private static int id;
     private static ArrayList<User> users = new ArrayList<>() {{
         add(new User(0, "joao@kinal.edu.gt", "123456", 'A'));
-        add(new User(0, "david@kinal.edu.gt", "123456", 'B'));
+        add(new User(1, "david@kinal.edu.gt", "123456", 'B'));
     }};
+    private static int id = users.size();
 
     public static ArrayList<User> getUsers() {
         return users;
     }
 
     public static String[][] getFields() {
-        String[][] array = new String[users.size()][2];
+        String[][] array = new String[users.size()][3];
         int i = 0;
         for (User user : users) {
-            array[i][0] = String.valueOf(user.getEmail());
-            if (user.getRol() == 'A') array[i][1] = "Admin";
-            if (user.getRol() == 'B') array[i][1] = "Worker";
+            array[i][0] = String.valueOf(user.getId());
+            array[i][1] = String.valueOf(user.getEmail());
+            if (user.getRol() == 'A') array[i][2] = "Admin";
+            if (user.getRol() == 'B') array[i][2] = "Worker";
             i++;
         }
 
@@ -63,7 +64,7 @@ public class UserController implements CRUD<User> {
 
     public void validateRol(char rol) throws Exception{
         if (rol == 'A' || rol == 'B') return;
-        throw new Exception("Rol no valid");
+        throw new Exception("Rol no valid, must be \'A\' or \'B\'");
     }
 
     public void validateNoRepeatedEmail(String email) throws Exception {
@@ -77,16 +78,9 @@ public class UserController implements CRUD<User> {
     // Interface Methods
     @Override
     public void create(User user) {
-        try {
-            validate(user);
             user.setId(id);
             users.add(user);
             id++;
-        } catch (Exception e) {
-            // display error message
-            return;
-        }
-
     }
 
     @Override
@@ -94,28 +88,17 @@ public class UserController implements CRUD<User> {
         for (User user : users)
             if (user.getId() == id) return user;
 
-        // Display error Message
         return null;
     }
 
     @Override
     public void update(User user) {
-        try {
-            validateEmail(user.getEmail());
-            validatePassword(user.getPassword());
-        } catch (Exception e) {
-            // throw new RuntimeException(e);
-            return;
-        }
-
         for (User usuario : users)
             if (usuario.getId() == user.getId()) {
                 users.remove(usuario);
                 users.add(user);
                 return;
             }
-
-        // Display Error Message
     }
 
     @Override

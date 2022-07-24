@@ -11,14 +11,7 @@ public class MainFrameWorker extends MainFrame {
 
     @Override
     protected void displayFrames(Object item) {
-        ArrayList<ArrayList<JMenuItem>> menuItems = new ArrayList<>() {{
-            add(carMenuItems);
-            add(motorcycleMenuItems);
-            add(busMenuItems);
-            add(userMenuItems);
-        }};
-
-        ArrayList<ArrayList<JInternalFrame>> methods = new ArrayList<>() {{
+        methods = new ArrayList<>() {{
             add(new ArrayList<>() {{
                 add(new CreateFrameCar());
                 add(new ReadFrameCar());
@@ -40,19 +33,6 @@ public class MainFrameWorker extends MainFrame {
             }});
         }};
 
-        int i = 0;
-        for (ArrayList<JMenuItem> menuItem : menuItems) {
-            if (item == menuItem.get(0)) {
-                // Create Frame
-                add(methods.get(i).get(0));
-                return;
-            }
-            if (item == menuItem.get(1)) {
-                // call read frame
-                add(methods.get(i).get(1));
-                return;
-            }
-            i++;
-        }
+        manageFrames(item);
     }
 }

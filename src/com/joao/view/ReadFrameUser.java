@@ -6,6 +6,6 @@ public class ReadFrameUser extends ReadFrame{
     UserController userController = new UserController();
 
     public ReadFrameUser() {
-        super(new String[] {"Correo", "Rol"}, UserController.getFields());
+        super(new String[] {"id", "Correo", "Rol"}, UserController.getFields());
     }
 }

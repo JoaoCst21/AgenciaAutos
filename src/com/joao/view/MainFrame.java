@@ -102,6 +102,26 @@ public abstract class MainFrame extends JFrame implements ActionListener {
         }
     }
 
+    protected void manageFrames(Object item) {
+        int i = 0;
+        for (ArrayList<JMenuItem> menuItem : conveyanceItems) {
+            for (int ind = 0; ind < menuItem.size(); ind++) {
+                if (item == menuItem.get(ind)) {
+                    // desactiveFrame
+                    if (activeFrame != null) activeFrame.dispose();
+
+                    // declare ActiveFrame
+                    activeFrame = methods.get(i).get(ind);
+
+                    // add activeFrame
+                    add(activeFrame);
+                    return;
+                }
+            }
+            i++;
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         displayFrames(e.getSource());
