@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class UpdateFrame<T, E extends CRUD<T>>extends JInternalFrame implements ActionListener {
-    private final E controller;
+    protected final E controller;
     JButton buttonSubmit = new JButton("Guardar");
     JButton buttonSearch = new JButton("Buscar");
     JPanel panel = new JPanel();
@@ -104,13 +104,13 @@ public abstract class UpdateFrame<T, E extends CRUD<T>>extends JInternalFrame im
 
     protected abstract void setTextfieldValue(T obj);
 
-    private void checkTextFields() throws Exception {
+    protected void checkTextFields() throws Exception {
         for (Map.Entry<String, JTextField> text : textfields.entrySet()) {
             if (text.getValue().getText().equals("")) throw new Exception("You must fill all Fields");
         }
     }
     
-    private void tryUpdateObject() {
+    protected void tryUpdateObject() {
         try {
             // checks for not filled fields
             checkTextFields();

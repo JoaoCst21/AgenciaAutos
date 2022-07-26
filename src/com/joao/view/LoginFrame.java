@@ -2,6 +2,7 @@ package com.joao.view;
 
 import com.joao.controller.UserController;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -21,32 +22,36 @@ public class LoginFrame extends JFrame {
     private void customComponents() {
         // declaring parent Panel
         JPanel parentPanel = new JPanel();
-        parentPanel.setPreferredSize(new Dimension(300, 120));
+        parentPanel.setPreferredSize(new Dimension(320, 120));
 
         // panel
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(2, 1, 0, 10));
+        panel.setLayout(new GridLayout(2, 1, 5, 10));
 
         // subpanels
         JPanel emailPanel = new JPanel();
-        emailPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        emailPanel.setLayout(new BoxLayout(emailPanel, BoxLayout.X_AXIS));
         JPanel passwordPanel = new JPanel();
-        passwordPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        passwordPanel.setLayout(new BoxLayout(passwordPanel, BoxLayout.X_AXIS));
 
         // labels
         JLabel emailLabel = new JLabel("Correo :");
         JLabel passwordLabel = new JLabel("Contraseña :");
 
         // textFields
+        JPanel emailTxtPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JTextField emailTxt = new JTextField(20);
+        emailTxtPanel.add(emailTxt);
+        JPanel passwordTxtPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JTextField passwordTxt = new JTextField(20);
+        passwordTxtPanel.add(passwordTxt);
 
         // adding labels and textfields to subpanels
-        emailPanel.add(emailLabel);
-        emailPanel.add(emailTxt);
+        emailPanel.add(emailLabel, BoxLayout.X_AXIS);
+        emailPanel.add(emailTxtPanel, BoxLayout.Y_AXIS);
 
-        passwordPanel.add(passwordLabel);
-        passwordPanel.add(passwordTxt);
+        passwordPanel.add(passwordLabel, BoxLayout.X_AXIS);
+        passwordPanel.add(passwordTxtPanel, BoxLayout.Y_AXIS);
 
         // Buttons
         JButton buttonSubmit = new JButton("Iniciar Sesion");
