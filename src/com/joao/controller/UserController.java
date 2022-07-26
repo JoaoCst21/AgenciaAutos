@@ -47,18 +47,6 @@ public class UserController implements CRUD<User> {
         for (User user: users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) return user.getRol();
         }
-
-        try {
-            validateEmail(email);
-            validatePassword(password);
-        } catch (Exception e) {
-            // throw new RuntimeException(e);
-            // add JFrame displaying error
-            return 'F';
-        }
-
-        // Display Error Message;
-        // it is not in our Database;
         return 'F';
     }
 

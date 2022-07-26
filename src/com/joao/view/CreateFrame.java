@@ -4,12 +4,17 @@ import com.joao.controller.ConveyanceController;
 import com.joao.model.CRUD;
 import com.joao.model.Conveyance;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -61,12 +66,17 @@ public abstract class CreateFrame<T, E extends CRUD> extends JInternalFrame impl
     private void setLabelsTextFields() {
         for (String field : fields) {
             subPanels.put(field, new JPanel());
+            subPanels.get(field).setLayout(new BoxLayout(subPanels.get(field), BoxLayout.X_AXIS));
+            subPanels.get(field).setPreferredSize(new Dimension(300, 30));
             labels.put(field, new JLabel(field));
             textfields.put(field, new JTextField(20));
 
             // adding to panel
+            JPanel paneltxt = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            paneltxt.add(textfields.get(field));
             subPanels.get(field).add(labels.get(field));
-            subPanels.get(field).add(textfields.get(field));
+            subPanels.get(field).add(paneltxt, BoxLayout.Y_AXIS);
+            subPanels.get(field).validate();
 
             // adding subPanel to container (panel)
             panel.add(subPanels.get(field));

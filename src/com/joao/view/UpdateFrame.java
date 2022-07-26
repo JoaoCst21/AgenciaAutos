@@ -2,6 +2,8 @@ package com.joao.view;
 
 
 import com.joao.model.CRUD;
+
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
@@ -11,6 +13,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
@@ -18,15 +21,15 @@ import java.util.Map;
 
 public abstract class UpdateFrame<T, E extends CRUD<T>>extends JInternalFrame implements ActionListener {
     private final E controller;
-    JButton buttonSubmit;
-    JButton buttonSearch;
-    JPanel panel;
+    JButton buttonSubmit = new JButton("Guardar");
+    JButton buttonSearch = new JButton("Buscar");
+    JPanel panel = new JPanel();
     String[] fields;
     HashMap<String, JPanel> subPanels = new HashMap<>();
     HashMap<String, JLabel> labels = new HashMap<>();
     HashMap<String, JTextField> textfields = new HashMap<>();
-    private JTextField textfieldBuscar;
-    private JLabel labelBuscar;
+    private JTextField textfieldBuscar = new JTextField(10);
+    private JLabel labelBuscar = new JLabel("Ingrese el ID a buscar");
 
 
     public UpdateFrame(E controller, String[] fields) {
@@ -38,36 +41,10 @@ public abstract class UpdateFrame<T, E extends CRUD<T>>extends JInternalFrame im
 
 
     private void customComponents() {
-        // panel
-        panel = new JPanel();
+        // create, and store components for Labels, textfields, and subPanels
+        setLabelsTextFields();
 
-        // create, store, and adding components for Labels, textfields, and subPanels
-         setLabelsTextFields();
-
-        // Button
-        buttonSubmit = new JButton("Guardar");
-
-        // buscar
-        labelBuscar = new JLabel("Ingrese el ID a buscar");
-        textfieldBuscar = new JTextField(10);
-
-        // add to panel
-        JPanel panelBuscar = new JPanel();
-        panelBuscar.add(labelBuscar);
-        panelBuscar.add(textfieldBuscar);
-
-        // Button Buscar
-        buttonSearch = new JButton("Buscar");
-
-        // adding Button to panel
-        panel.add(buttonSubmit);
-
-        JSeparator separator = new JSeparator();
-        separator.setPreferredSize(new Dimension(300, 5));
-        separator.setVisible(true);
-        panel.add(separator);
-        panel.add(panelBuscar);
-        panel.add(buttonSearch);
+        setPanel();
 
         // adding panel
         add(panel);
@@ -83,20 +60,46 @@ public abstract class UpdateFrame<T, E extends CRUD<T>>extends JInternalFrame im
         buttonSearch.addActionListener(this);
     }
 
+    private void setPanel() {
+        // add to panel
+        JPanel panelBuscar = new JPanel();
+        panelBuscar.add(labelBuscar);
+        panelBuscar.add(textfieldBuscar);
+
+        // adding Button to panel
+        JSeparator separator = new JSeparator();
+        separator.setPreferredSize(new Dimension(300, 5));
+        separator.setVisible(true);
+        panel.add(separator);
+        panel.add(panelBuscar);
+        panel.add(buttonSearch);
+    }
+
     // Methods
     private void setLabelsTextFields() {
         for (String field : fields) {
             subPanels.put(field, new JPanel());
+            subPanels.get(field).setLayout(new BoxLayout(subPanels.get(field), BoxLayout.X_AXIS));
+            subPanels.get(field).setPreferredSize(new Dimension(300, 30));
             labels.put(field, new JLabel(field));
             textfields.put(field, new JTextField(20));
 
             // adding to panel
+            JPanel paneltxt = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+            paneltxt.add(textfields.get(field));
             subPanels.get(field).add(labels.get(field));
-            subPanels.get(field).add(textfields.get(field));
-
-            // adding subPanel to container (panel)
-            panel.add(subPanels.get(field));
+            subPanels.get(field).add(paneltxt, BoxLayout.Y_AXIS);
+            subPanels.get(field).validate();
         }
+    }
+
+    private void addSubPanels() {
+        for (String field : fields)
+            panel.add(subPanels.get(field));
+
+        panel.add(buttonSubmit);
+        revalidate();
+        repaint();
     }
 
     protected abstract void setTextfieldValue(T obj);
@@ -142,9 +145,13 @@ public abstract class UpdateFrame<T, E extends CRUD<T>>extends JInternalFrame im
 
             try {
                 T object = controller.read(id);
+                if (object == null) throw new Exception("ID no existe");
+                panel.removeAll();
                 setTextfieldValue(object);
+                addSubPanels();
+                setPanel();
             } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "ID no existe", "Car Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
         }
         if (e.getSource() == buttonSubmit) tryUpdateObject();

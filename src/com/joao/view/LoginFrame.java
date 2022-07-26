@@ -5,6 +5,7 @@ import com.joao.controller.UserController;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.Dimension;
@@ -81,11 +82,17 @@ public class LoginFrame extends JFrame {
             }
             if (rol == 'B') {
                 this.dispose();
-                // here I should display a different Window, but for know is Okay
                 new MainFrameWorker();
                 return;
             }
-            // Display Error Message and Try again, at least I hope
+            // Display Error
+            try {
+                userController.validateEmail(emailTxt.getText());
+                userController.validatePassword(passwordTxt.getText());
+                throw new Exception("Usuario o contraseña incorrecta");
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Login Error", JOptionPane.ERROR_MESSAGE);
+            }
         });
     }
 }
