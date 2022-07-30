@@ -5,8 +5,18 @@ import com.joao.model.Conveyance;
 
 import java.util.ArrayList;
 
+/**
+ * Esta Clase será usada para almacenar Objetos tipo {@link T} e interactuar
+ * con los Frames en {@link com.joao.view}. también implementa {@link com.joao.model.CRUD}
+ * @param <T> Clase que hereda de  {@link com.joao.model.Conveyance}.
+ * Será usada para crear objetos en el Arraylist {{@link #conveyances}}.<br/>
+ * y esta Clase será la elegida para implementar {@link com.joao.model.CRUD} y todos sus metodos
+ * */
 public abstract class ConveyanceController<T extends Conveyance> implements CRUD<T> {
     private int id;
+    /**
+     * ArrayList que actuara como base de Datos para los Objetos tipo {@link T}
+     * */
     ArrayList<T> conveyances = new ArrayList<>();
 
     protected ArrayList<T> getConveyances() {

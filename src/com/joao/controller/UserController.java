@@ -5,7 +5,15 @@ import com.joao.model.User;
 
 import java.util.ArrayList;
 
+/**
+ * Esta Clase será usada para almacenar Objetos tipo {@link com.joao.model.User} e interactuar
+ * con los Frames en {@link com.joao.view}. también implementa {@link com.joao.model.CRUD}
+ * con {@link com.joao.model.User} como parametro del mismo
+ * */
 public class UserController implements CRUD<User> {
+    /**
+     * ArrayList que actuara como base de Datos para los Objetos tipo {@link com.joao.model.User}
+     * */
     private static ArrayList<User> users = new ArrayList<User>() {{
         add(new User(0, "joao@kinal.edu.gt", "123456", 'A'));
         add(new User(1, "david@kinal.edu.gt", "123456", 'B'));
@@ -16,6 +24,10 @@ public class UserController implements CRUD<User> {
         return users;
     }
 
+    /**
+     * crea un Array de 2 dimensiones con todas las propiedades de los objetos
+     * almacenados en {@link #users} convertidos a String
+     * */
     public static String[][] getFields() {
         String[][] array = new String[users.size()][3];
         int i = 0;
@@ -43,6 +55,11 @@ public class UserController implements CRUD<User> {
         }
     }
 
+    /**
+     * Verifica que el email y contraseña ingresada sean correctos, y devuelve el Rol
+     * correspondiente al Usuario encontrado con esos Registros
+     * de lo contrario devuelve un valor inválido.
+     * */
     public char verify(String email, String password) {
         for (User user: users) {
             if (user.getEmail().equals(email) && user.getPassword().equals(password)) return user.getRol();
@@ -60,7 +77,6 @@ public class UserController implements CRUD<User> {
             if (user.getEmail().equals(email)) throw new Exception("Email is in database already");
         }
     }
-
 
 
     // Interface Methods

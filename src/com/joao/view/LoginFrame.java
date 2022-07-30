@@ -13,12 +13,18 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
+/**
+ * JFrame/Ventana de Inicio de Sesion que pregunta los datos al Usuario, y los inicia en la aplicación
+ * */
 public class LoginFrame extends JFrame {
     public LoginFrame() {
         customComponents();
         setVisible(true);
     }
 
+    /**
+     * establece los paneles y todo lo necesario del frame
+     * */
     private void customComponents() {
         // declaring parent Panel
         JPanel parentPanel = new JPanel();

@@ -7,11 +7,23 @@ import java.util.ArrayList;
 public class BusController extends ConveyanceController<Bus> {
     private static BusController busController;
 
+    /**
+     * Constructor Singleton.<br/>
+     * Esto con el fin de Que siempre se trabaje con la misma base de Datos.
+     * Singleton es indispensable para esta implementación, ya que
+     * no se puede implementar un ArrayList estático, puesto que el ArrayList es heredado
+     * de una Clase Parametrizada/Genérica por lo cual no puede ser declarada como
+     * estática.
+     * */
     public static BusController getBusController() {
         if (busController == null) busController = new BusController();
         return busController;
     }
 
+    /**
+     * crea un Array de 2 dimensiones con todas las propiedades de los objetos
+     * almacenados en {@link #conveyances} convertidos a String
+     * */
     public static String[][] getFields() {
         ArrayList<Bus> buses = getBusController().getConveyances();
         String[][] array = new String[buses.size()][6];

@@ -21,11 +21,11 @@ import java.util.Map;
 * JInternalFrame/Ventana customizable para crear y almaceanr Objetos de tipo {@link Class}
  * en el {@link #controller} <br/>
  * crea los textfields y labels en base al array de
- * String que recibe en el constructor {@link #CreateFrame(com.joao.model.CRUD, String[])}
+ * Strings, {@link #fields}, que recibe en el constructor {@link #CreateFrame(com.joao.model.CRUD, String[])}
  * para luego manipular los inputs con el {@link #controller} <br/><br/>
  * @param <Class> La clase del Objeto a modificar con el {@link Controlador}
  * @param <Controlador>> La Clase del {@link #controller} esta clase
- * debe implementar la interface {@link com.joao.model.CRUD} con parametro del
+ * debe implementar la interfaz {@link com.joao.model.CRUD} con parametro del
  * mismo tipo que {@link Class}
  * @WARNING tomar en cuenta que en base al Array de String que se recibe en el constructor
  * {@link com.joao.view.CreateFrame#CreateFrame(com.joao.model.CRUD, String[])}
@@ -47,7 +47,7 @@ public abstract class CreateFrame<Class, Controlador extends CRUD<Class>> extend
      * con esta se validara, y agregara objetos de tipo {@link Class} se espera que estos
      * objetos sean almacenados en el {@link com.joao.view.CreateFrame#controller}
      * @param fields Array con el nombre de todas las propiedades de un Objeto {@link Class} que
-     * seran usadas para crear Labels con cada uno de los valores del array e
+     * serán usadas para crear Labels con cada uno de los valores del array e
      * instanciar un Objeto con el input de cada label. <br/>
      * Cada valor del array es utilizado como Key de los HashMap
      * {@link #textfields}, {@link #labels}, {@link #subPanels}
@@ -94,11 +94,11 @@ public abstract class CreateFrame<Class, Controlador extends CRUD<Class>> extend
 
     // Methods
     /**
-     * Crea y centra cada una de las Labels con combre en base a cada uno de los valores
-     * {@link com.joao.view.CreateFrame#fields}
+     * Crea, centra y agrega a {@link #panel} cada una de las Labels con combre en base a cada uno de los valores
+     * {@link #fields}
      * puedes acceder a cada uno de las labels, textfields o subpanels con
-     * {@link com.joao.view.CreateFrame#labels}, {@link com.joao.view.CreateFrame#textfields},
-     * {@link com.joao.view.CreateFrame#subPanels} respectivamente, ingresando
+     * {@link #labels}, {@link #textfields},
+     * {@link #subPanels} respectivamente, ingresando
      * el nombre del field como key en el HashMap
      * */
     private void setLabelsTextFields() {
@@ -122,7 +122,7 @@ public abstract class CreateFrame<Class, Controlador extends CRUD<Class>> extend
     }
 
     /**
-     * Revisa que todos los TextFields estan llenos
+     * Revisa que todos los TextFields están llenos
      * */
     private void checkTextFields() throws Exception {
         for (Map.Entry<String, JTextField> text : textfields.entrySet()) {
@@ -133,18 +133,18 @@ public abstract class CreateFrame<Class, Controlador extends CRUD<Class>> extend
     /**
      * Intenta crear un Objeto de clase {@link Class}
      * hace uso de {@link #controller} para validar todo los datos y crear el Objeto. <br/>
-     * despues de esta operacion la Ventana se cerrara. <br/>
+     * después de esta operación la Ventana se cerrara. <br/>
      * en caso de Error desplegara una Ventana {@link javax.swing.JOptionPane} con el error
-     * y no se creara ningun objeto
-     * @WARNING esta ventana se cerrará, después de esta operacion, no solo se escondera. <br/>
-     * se hace uso de {@link #dispose()} para esta operacion
+     * y no se creara ningún objeto
+     * @WARNING esta ventana se cerrará, después de esta operación, no solo se esconderá. <br/>
+     * se hace uso de {@link #dispose()} para esta operación
      * */
     private void tryCreateObj() {
         try {
             // checks for not filled fields
             checkTextFields();
 
-            // get Fields, validate all, and Add new Object T to controller
+            // get Fields, validate all, and Add new Object Class to controller
             Class object = getObject();
             controller.validate(object);
             controller.create(object);
@@ -152,7 +152,6 @@ public abstract class CreateFrame<Class, Controlador extends CRUD<Class>> extend
             // disable window
             this.dispose();
         } catch (Exception ex) {
-            // do Something
             // display error Message;
             JOptionPane.showMessageDialog(null, ex.getMessage(), "Car Error", JOptionPane.ERROR_MESSAGE);
             System.out.println(ex.getMessage()); // just for now
@@ -161,9 +160,9 @@ public abstract class CreateFrame<Class, Controlador extends CRUD<Class>> extend
 
     /**
      * Crea un Objeto de tipo {@link Class } en base a los valores escritos en los {@link #textfields}. <br/>
-     * Este metodo sera implementado distinto por cada Clase que herede e esta
-     * @IMPORTANT Este metodo deberia ser llamado despues de {@link #checkTextFields()} para asegurar que
-     * todos los campos necesarios estan llenos
+     * Este metodo será implementado distinto por cada Clase que herede de esta
+     * @IMPORTANT Este metodo debería ser llamado después de {@link #checkTextFields()} para asegurar que
+     * todos los campos necesarios están llenos
      * */
     protected abstract Class getObject();
 

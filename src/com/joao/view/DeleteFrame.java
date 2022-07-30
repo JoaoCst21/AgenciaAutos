@@ -27,22 +27,22 @@ import java.awt.event.ActionListener;
  * mismo tipo que {@link Class}
 * */
 public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extends JInternalFrame implements ActionListener {
-    private Controlador controller;
+    private final Controlador controller;
     String[][] data;
     Class object;
     String[] column;
     private JLabel labelBuscar;
     private JTextField textfieldBuscar;
     private JButton buttonSearch;
-    private JButton buttonDelete = new JButton("Delete");
+    private final JButton buttonDelete = new JButton("Delete");
 
     /**
      * @param controller Una instancia (de preferencia singleton) que debe implementar
      * {@link com.joao.model.CRUD}. <br/>
-     * con esta se validara, recibira y eliminara objetos de tipo {@link Class} se espera que estos
-     * objetos esten almacenados en el {@link #controller}
+     * con esta se validara, recibirá y eliminara objetos de tipo {@link Class} se espera que estos
+     * objetos estén almacenados en el {@link #controller}
      * @param column Array con el nombre de todas las propiedades de un Objeto {@link Class} que
-     * seran usadas para crear los nombres de las columnas de la tabla
+     * serán usadas para crear los nombres de las columnas de la tabla
      * */
     public DeleteFrame(Controlador controller, String[] column) {
         data = new String[1][column.length];
@@ -101,7 +101,7 @@ public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extend
      * @buttonDelete llama a {@link #tryDeleteObject()} e intenta eliminar el objeto con el ID
      * indicado del {@link #controller}
      * y luego despliega una ventana preguntando si desea eliminarlo. <br/>
-     * en caso de error en el proceso se desplagara una ventana explicando el error y no elimina nada
+     * en caso de error en el proceso se desplegara una ventana explicando el error y no elimina nada
      * */
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -115,7 +115,6 @@ public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extend
             }
             try {
                 object = controller.read(id);
-                System.out.println(object);
                 setDataTableValue(object);
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -140,7 +139,7 @@ public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extend
     }
     /**
      * Crea una Tabla con los valores del array {@link #column} como columnas
-     * y un boton para eliminar el objeto mostrado del {@link #controller}
+     * y un botón para eliminar el objeto mostrado del {@link #controller}
      * */
     private JPanel getTable() {
         // panel
@@ -167,7 +166,7 @@ public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extend
     }
 
     /**
-     * valida e intenta eliminar el valor actual de {@link #object} de {@link #controller}
+     * válida e intenta eliminar el valor actual de {@link #object} de {@link #controller}
      * en caso de error desplega una ventana explicando el error y cancela el proceso
      * de eliminación
      * */
@@ -195,7 +194,7 @@ public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extend
     protected abstract void setDataTableValue(Class obj);
 
     /**
-     * Verifica que todos los Campos requeridos necesarios esten completos
+     * Verifica que todos los Campos requeridos necesarios estén completos
      * */
     private void checkTextFields() throws Exception {
             if (labelBuscar.getText().equals("")) throw new Exception("You must fill all Fields");
