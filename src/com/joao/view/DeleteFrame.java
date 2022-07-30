@@ -177,7 +177,9 @@ public abstract class DeleteFrame<Class, Controlador extends CRUD<Class>> extend
 
             // get Fields and Add new Object T to controller
             String message = "Estas seguro que deseas Eliminar este objeto?, esta accion no se puede deshacer";
-            JOptionPane.showMessageDialog(null, message, "Seguro?", JOptionPane.WARNING_MESSAGE);
+            String[] responses = {"SI", "NO"};
+            int option= JOptionPane.showOptionDialog(null, message, "Seguro?", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE, null, responses, 0);
+            if (option != 0) return;
             controller.delete(object);
 
             // disable window
